@@ -9,11 +9,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from dist folder (built frontend)
+const distPath = path.join(__dirname, '..', 'dist');
+app.use(express.static(distPath));
 
 // Configuració de multer per gestionar pujada de fitxers
 const storage = multer.diskStorage({
@@ -269,6 +273,11 @@ app.post('/api/categories', async (req, res) => {
     console.error('Error afegint categoria:', error);
     res.status(500).json({ error: 'Error afegint categoria' });
   }
+});
+
+// Catch-all route for React Router (must be after API routes)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 // Iniciar servidor
