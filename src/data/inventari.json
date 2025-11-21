@@ -1,0 +1,34 @@
+{
+  "documents": [
+    {
+      "id": 1,
+      "tipus": "foto",
+      "any": 2004,
+      "mes": null,
+      "dia": null,
+      "titol": "PROVA",
+      "descripcio": "ÉS UN PROVA MOLT PROVA",
+      "autor": "MARC VILASECA",
+      "categories": [],
+      "fitxer": "/assets/fotos/board-1763560950791.png",
+      "public": true
+    }
+  ],
+  "categories": [
+    "Graduacions",
+    "Anys 60",
+    "Anys 70",
+    "Anys 80",
+    "Anys 90",
+    "Anys 2000",
+    "Anys 2010",
+    "Anys 2020",
+    "Documentació oficial",
+    "Història",
+    "Esports",
+    "Excursions",
+    "Actes",
+    "Professors",
+    "Alumnes"
+  ]
+}
