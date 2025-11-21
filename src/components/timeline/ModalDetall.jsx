@@ -77,14 +77,13 @@ export default function ModalDetall({ document, isOpen, onClose }) {
             exit={{ opacity: 0, scale: 0.9 }}
             style={{
               position: 'fixed',
-              top: '50%',
-              left: '50%',
+              top: 'calc(50% - 40px)',
+              left: 'calc(50% - 60px)',
               transform: 'translate(-50%, -50%)',
               width: 'calc(100% - 120px)',
               height: 'calc(100% - 80px)',
               maxWidth: '1200px',
               maxHeight: '90vh',
-              margin: '40px 60px',
               backgroundColor: 'white',
               borderRadius: '16px',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
