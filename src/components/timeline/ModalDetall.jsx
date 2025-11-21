@@ -46,7 +46,20 @@ export default function ModalDetall({ document, isOpen, onClose }) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:max-w-2xl md:-translate-x-1/2 md:-translate-y-1/2 bg-white rounded-lg shadow-2xl z-50 overflow-y-auto max-h-screen md:max-h-[90vh]"
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              maxWidth: '90vw',
+              width: '100%',
+              maxHeight: '90vh',
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              zIndex: 50,
+              overflowY: 'auto',
+            }}
           >
             {/* Botó Tancar */}
             <button
