@@ -10,7 +10,8 @@
     "build": "vite build",
     "start:prod": "node server/index.js",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "cors": "^2.8.5",
