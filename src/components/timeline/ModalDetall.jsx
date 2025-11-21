@@ -42,7 +42,7 @@ export default function ModalDetall({ document, isOpen, onClose }) {
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.85)' }}
           />
 
-          {/* Modal - Large and centered */}
+          {/* Modal - Centered on content area (right of filters, below header) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -50,11 +50,11 @@ export default function ModalDetall({ document, isOpen, onClose }) {
             style={{
               position: 'fixed',
               top: '50%',
-              left: '50%',
+              left: 'calc(25% + 50%)',
               transform: 'translate(-50%, -50%)',
-              width: '90%',
+              width: '85%',
+              maxWidth: '1000px',
               height: '90%',
-              maxWidth: '1200px',
               maxHeight: '90vh',
               backgroundColor: 'white',
               borderRadius: '16px',
