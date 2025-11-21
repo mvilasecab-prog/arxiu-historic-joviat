@@ -32,6 +32,34 @@ export default function ModalDetall({ document, isOpen, onClose }) {
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* DEBUG: Visual guides for centering */}
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '2px',
+              height: '100vh',
+              backgroundColor: 'red',
+              zIndex: 100,
+              opacity: 0.5,
+            }}
+          />
+          <div
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: 0,
+              width: '100%',
+              height: '2px',
+              backgroundColor: 'red',
+              zIndex: 100,
+              opacity: 0.5,
+            }}
+          />
+          {/* END DEBUG */}
+
           {/* Overlay - darker for better viewing */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -42,7 +70,7 @@ export default function ModalDetall({ document, isOpen, onClose }) {
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.85)' }}
           />
 
-          {/* Modal - Centered on content area (right of filters, below header) */}
+          {/* Modal - Centered on viewport with page margins */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -50,12 +78,13 @@ export default function ModalDetall({ document, isOpen, onClose }) {
             style={{
               position: 'fixed',
               top: '50%',
-              left: 'calc(25% + 50%)',
+              left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: '85%',
-              maxWidth: '1000px',
-              height: '90%',
+              width: 'calc(100% - 120px)',
+              height: 'calc(100% - 80px)',
+              maxWidth: '1200px',
               maxHeight: '90vh',
+              margin: '40px 60px',
               backgroundColor: 'white',
               borderRadius: '16px',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
