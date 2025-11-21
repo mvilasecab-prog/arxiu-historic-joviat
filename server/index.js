@@ -276,7 +276,7 @@ app.post('/api/categories', async (req, res) => {
 });
 
 // Catch-all route for React Router (must be after API routes)
-app.get('/*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
