@@ -32,91 +32,133 @@ export default function ModalDetall({ document, isOpen, onClose }) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Overlay */}
+          {/* Overlay - darker for better viewing */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 z-40"
+            className="fixed inset-0 z-40"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.85)' }}
           />
 
-          {/* Modal */}
+          {/* Modal - Large and centered */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
+            exit={{ opacity: 0, scale: 0.9 }}
             style={{
               position: 'fixed',
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               width: '90%',
-              maxWidth: '600px',
-              maxHeight: '85vh',
+              height: '90%',
+              maxWidth: '1200px',
+              maxHeight: '90vh',
               backgroundColor: 'white',
-              borderRadius: '12px',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              borderRadius: '16px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
               zIndex: 50,
               overflowY: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
-            {/* Botó Tancar */}
-            <button
-              onClick={onClose}
-              className="sticky top-0 right-0 p-4 hover:bg-[#F5F5F5] rounded-full transition-colors text-[#666666] hover:text-black float-right"
-            >
-              <X size={24} />
-            </button>
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '20px', position: 'relative' }}>
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                style={{
+                  position: 'absolute',
+                  top: '20px',
+                  right: '20px',
+                  background: 'rgba(0, 0, 0, 0.7)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  zIndex: 100,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.background = 'rgba(0, 0, 0, 0.9)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = 'rgba(0, 0, 0, 0.7)';
+                }}
+              >
+                ✕
+              </button>
 
-            <div className="p-8">
-              {/* Tipus + Any */}
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-3xl">{getTipusEmoji(document.tipus)}</span>
-                <div>
-                  <p className="text-sm text-[#666666]">
-                    {document.tipus.charAt(0).toUpperCase() + document.tipus.slice(1)}
-                  </p>
-                  <p className="text-2xl font-bold text-black">{document.any}</p>
-                </div>
-              </div>
-
-              {/* Títol */}
-              <h2 className="text-3xl font-bold text-black mb-2">{document.titol}</h2>
-
-              {/* Data Completa */}
-              {document.any && (
-                <p className="text-[#666666] mb-6">{formatarData(document.any, document.mes, document.dia)}</p>
-              )}
-
-              {/* Preview */}
+              {/* Preview - Large image takes priority */}
               {document.fitxer && (
-                <div className="mb-8 border border-[#E5E5E5] rounded-lg overflow-hidden bg-[#F5F5F5] min-h-[200px] flex items-center justify-center">
+                <div
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '20px',
+                    minHeight: '0',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    backgroundColor: '#F5F5F5',
+                  }}
+                >
                   {document.tipus === 'foto' && (
                     <img
                       src={document.fitxer}
                       alt={document.titol}
-                      className="w-full h-full object-cover"
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        objectFit: 'contain',
+                      }}
                     />
                   )}
                   {document.tipus === 'video' && (
                     <video
                       controls
-                      className="w-full h-full object-cover"
-                      style={{ maxHeight: '400px' }}
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        objectFit: 'contain',
+                      }}
                     >
                       <source src={document.fitxer} />
                       El teu navegador no suporta vídeo.
                     </video>
                   )}
                   {document.tipus === 'document' && (
-                    <div className="text-center p-8">
-                      <p className="text-5xl mb-4">📄</p>
-                      <p className="text-[#666666] mb-4">Document PDF</p>
+                    <div style={{ textAlign: 'center', padding: '40px' }}>
+                      <p style={{ fontSize: '80px', marginBottom: '20px' }}>📄</p>
+                      <p style={{ color: '#666666', marginBottom: '20px', fontSize: '18px' }}>
+                        Document PDF
+                      </p>
                       <a
                         href={document.fitxer}
                         download
-                        className="inline-block px-6 py-2 bg-black text-white rounded-lg hover:bg-[#333333] transition-colors"
+                        style={{
+                          display: 'inline-block',
+                          padding: '12px 24px',
+                          backgroundColor: 'black',
+                          color: 'white',
+                          borderRadius: '8px',
+                          textDecoration: 'none',
+                          fontWeight: 'bold',
+                        }}
+                        onMouseOver={(e) => {
+                          e.target.style.backgroundColor = '#333333';
+                        }}
+                        onMouseOut={(e) => {
+                          e.target.style.backgroundColor = 'black';
+                        }}
                       >
                         Descarregar
                       </a>
@@ -125,44 +167,83 @@ export default function ModalDetall({ document, isOpen, onClose }) {
                 </div>
               )}
 
-              {/* Descripció */}
-              {document.descripcio && (
-                <div className="mb-8">
-                  <h3 className="text-sm font-medium text-black mb-2">Descripció</h3>
-                  <p className="text-[#666666] leading-relaxed whitespace-pre-wrap">
-                    {document.descripcio}
-                  </p>
-                </div>
-              )}
-
-              {/* Autor */}
-              {document.autor && (
-                <div className="mb-8 p-4 bg-[#F5F5F5] rounded-lg">
-                  <p className="text-sm text-[#666666]">Autor / Font</p>
-                  <p className="font-medium text-black">{document.autor}</p>
-                </div>
-              )}
-
-              {/* Categories */}
-              {document.categories && document.categories.length > 0 && (
-                <div className="mb-8">
-                  <h3 className="text-sm font-medium text-black mb-3">Categories</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {document.categories.map((cat, idx) => (
-                      <span
-                        key={idx}
-                        className="inline-block bg-black text-white px-3 py-1 rounded-full text-sm"
-                      >
-                        {cat}
-                      </span>
-                    ))}
+              {/* Info Section - Below image */}
+              <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                {/* Tipus + Any */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                  <span style={{ fontSize: '32px' }}>{getTipusEmoji(document.tipus)}</span>
+                  <div>
+                    <p style={{ fontSize: '14px', color: '#666666' }}>
+                      {document.tipus.charAt(0).toUpperCase() + document.tipus.slice(1)}
+                    </p>
+                    <p style={{ fontSize: '24px', fontWeight: 'bold', color: 'black' }}>
+                      {document.any}
+                    </p>
                   </div>
                 </div>
-              )}
 
-              {/* Metadata */}
-              <div className="text-xs text-[#CCCCCC] pt-8 border-t border-[#E5E5E5]">
-                <p>ID: {document.id}</p>
+                {/* Títol */}
+                <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'black', marginBottom: '8px' }}>
+                  {document.titol}
+                </h2>
+
+                {/* Data Completa */}
+                {document.any && (
+                  <p style={{ color: '#666666', marginBottom: '16px' }}>
+                    {formatarData(document.any, document.mes, document.dia)}
+                  </p>
+                )}
+
+                {/* Descripció */}
+                {document.descripcio && (
+                  <div style={{ marginBottom: '16px' }}>
+                    <h3 style={{ fontSize: '14px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>
+                      Descripció
+                    </h3>
+                    <p style={{ color: '#666666', lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>
+                      {document.descripcio}
+                    </p>
+                  </div>
+                )}
+
+                {/* Autor */}
+                {document.autor && (
+                  <div style={{ marginBottom: '16px', padding: '12px', backgroundColor: '#F5F5F5', borderRadius: '8px' }}>
+                    <p style={{ fontSize: '12px', color: '#666666' }}>Autor / Font</p>
+                    <p style={{ fontWeight: '500', color: 'black' }}>{document.autor}</p>
+                  </div>
+                )}
+
+                {/* Categories */}
+                {document.categories && document.categories.length > 0 && (
+                  <div style={{ marginBottom: '16px' }}>
+                    <h3 style={{ fontSize: '14px', fontWeight: '500', color: 'black', marginBottom: '12px' }}>
+                      Categories
+                    </h3>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                      {document.categories.map((cat, idx) => (
+                        <span
+                          key={idx}
+                          style={{
+                            display: 'inline-block',
+                            backgroundColor: 'black',
+                            color: 'white',
+                            padding: '6px 12px',
+                            borderRadius: '20px',
+                            fontSize: '12px',
+                          }}
+                        >
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Metadata */}
+                <div style={{ fontSize: '12px', color: '#CCCCCC', paddingTop: '16px', borderTop: '1px solid #E5E5E5' }}>
+                  <p>ID: {document.id}</p>
+                </div>
               </div>
             </div>
           </motion.div>
