@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import FormulariDocument from '../components/gestor/FormulariDocument';
 import LlistaDocuments from '../components/gestor/LlistaDocuments';
+import PasswordProtection from '../components/gestor/PasswordProtection';
 import { getDocuments, addDocument, deleteDocument, updateDocument } from '../services/api';
 
 export default function GestorInventari() {
@@ -8,6 +9,9 @@ export default function GestorInventari() {
   const [categories, setCategories] = useState([]);
   const [cargando, setCargando] = useState(false);
   const [editMode, setEditMode] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => sessionStorage.getItem('gestorAuthenticated') === 'true'
+  );
 
   // Carregar documents al montar
   useEffect(() => {
@@ -51,6 +55,10 @@ export default function GestorInventari() {
     alert('Funcionalitat d\'edició en desenvolupament');
     setEditMode(document.id);
   };
+
+  if (!isAuthenticated) {
+    return <PasswordProtection onAuthenticated={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <div className="max-w-5xl mx-auto px-8 md:px-16 py-20 p-8 md:p-12" style={{ paddingLeft: '60px', paddingRight: '60px', paddingTop: '40px', paddingBottom: '40px' }}>
